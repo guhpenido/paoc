@@ -3,18 +3,20 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Form-v10 by Colorlib</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Inscrição | Olímpiada do Conhecimento | CEFET-MG</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="elementos/img/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha512-rRQtF4V2wtAvXsou4iUAs2kXHi3Lj9NE7xJR77DE7GHsxgY9RTWy93dzMXgDIG8ToiRTD45VsDNdTiUagOFeZA== crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/elementos/css/register.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="elementos/css/flaticon.css">
-    <link rel="stylesheet" href="elementos/css/fontawesome-all.min.css">
+    <script src="https://kit.fontawesome.com/937e8004d1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="elementos/css/slick.css">
     <link rel="stylesheet" href="elementos/css/style.css">
+    <link rel="stylesheet" href="/elementos/css/register.css" />
 </head>
 <header>
     <!-- Cabeçalho -->
@@ -57,14 +59,28 @@
     </div>
 </header>
 <body class="form-v10">
-    
+    <!-- Carregando -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="elementos/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="page-content">
         <div class="form-v10-content">
             <form class="form-detail" action="#" method="post" id="myform">
                 <div class="form-left">
                     <h2>Informações gerais</h2>
+                    <div class="form-row form-row">  
+                        <input type="text" name="nome_equipe" id="nome_equipe" class="input-text"
+                            placeholder="Nome da equipe" required>
+                    </div>
                     <div class="form-row">
-                        <select name="title">
+                        <select name="curso">
                             <option class="option" value="title">Curso</option>
                             <option class="option" value="edi">Edificações</option>
                             <option class="option" value="elt">Eletrônica</option>
@@ -84,109 +100,114 @@
                             <i class="zmdi zmdi-chevron-down"></i>
                         </span>
                     </div>
-                    <h2>Responsável pela equipe</h2>
-                    <div class="form-group">
-                        
-                        <div class="form-row form-row-1">
-                            
-                            <input type="text" name="first_name" id="first_name" class="input-text"
-                                placeholder="First Name" required>
+                    <h2>Responsável pela equipe</h2>  
+                        <div class="form-row form-row">  
+                            <input type="text" name="nome_responsavel" id="nome_responsavel" class="input-text"
+                                placeholder="Nome completo" required>
                         </div>
-                        <div class="form-row form-row-2">
-                            <input type="text" name="last_name" id="last_name" class="input-text"
-                                placeholder="Last Name" required>
+                        <div class="form-row form-row">  
+                            <input type="text" name="email_responsavel" id="email_responsavel" class="input-text"
+                                placeholder="E-Mail institucional (@cefetmg.br)" pattern="^[\w.+\-]+@cefetmg\.br$" title="É necessário ser um email @cefetmg.br" required>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <select name="position">
-                            <option value="position">Position</option>
-                            <option value="director">Director</option>
-                            <option value="manager">Manager</option>
-                            <option value="employee">Employee</option>
-                        </select>
-                        <span class="select-btn">
-                            <i class="zmdi zmdi-chevron-down"></i>
-                        </span>
-                    </div>
-                    <div class="form-row">
-                        <input type="text" name="company" class="company" id="company" placeholder="Company" required>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-row form-row-3">
-                            <input type="text" name="business" class="business" id="business"
-                                placeholder="Business Arena" required>
+                        <h2>Capitão da equipe</h2>
+                        <div class="form-row form-row">  
+                            <input type="text" name="nome_capitao" id="nome_capitao" class="input-text"
+                                placeholder="Nome completo" required>
                         </div>
-                        <div class="form-row form-row-4">
-                            <select name="employees">
-                                <option value="employees">Employees</option>
-                                <option value="trainee">Trainee</option>
-                                <option value="colleague">Colleague</option>
-                                <option value="associate">Associate</option>
-                            </select>
-                            <span class="select-btn">
-                                <i class="zmdi zmdi-chevron-down"></i>
-                            </span>
+                        <div class="form-row form-row">  
+                            <input type="text" name="email_capitao" id="email_capitao" class="input-text"
+                                placeholder="E-Mail válido" required>
                         </div>
-                    </div>
+                        <div class="form-row form-row">  
+                            <input type="text" name="matricula_capitao" id="matricula_capitao" class="input-text"
+                                placeholder="Matrícula válida" pattern=".{11,}" required>
+                        </div>
                 </div>
                 <div class="form-right">
-                    <h2>Contact Details</h2>
-                    <div class="form-row">
-                        <input type="text" name="street" class="street" id="street" placeholder="Street + Nr" required>
-                    </div>
-                    <div class="form-row">
-                        <input type="text" name="additional" class="additional" id="additional"
-                            placeholder="Additional Information" required>
-                    </div>
+                    <h2>Informações dos integrantes</h2>
+                    <h3>1</h3>
                     <div class="form-group">
-                        <div class="form-row form-row-1">
-                            <input type="text" name="zip" class="zip" id="zip" placeholder="Zip Code" required>
+						<div class="form-row form-row-1">  
+                            <input type="text" name="nome_integrante1" id="nome_integrante1" class="input-text"
+                                placeholder="Nome completo" required>
                         </div>
-                        <div class="form-row form-row-2">
-                            <select name="place">
-                                <option value="place">Place</option>
-                                <option value="Street">Street</option>
-                                <option value="District">District</option>
-                                <option value="City">City</option>
-                            </select>
-                            <span class="select-btn">
-                                <i class="zmdi zmdi-chevron-down"></i>
-                            </span>
-                        </div>
+                        <div class="form-row form-row">  
+                            <input type="text" name="matricula_integrante1" id="matricula_integrante1" class="input-text"
+                                placeholder="Matrícula válida" pattern=".{11,}" required>
+                        </div> 
+					</div>
+                    <div class="form-row form-row-1">  
+                        <input type="text" name="email_integrante1" id="email_integrante1" class="input-text"
+                            placeholder="E-Mail válido" required>
                     </div>
-                    <div class="form-row">
-                        <select name="country">
-                            <option value="country">Country</option>
-                            <option value="Vietnam">Vietnam</option>
-                            <option value="Malaysia">Malaysia</option>
-                            <option value="India">India</option>
-                        </select>
-                        <span class="select-btn">
-                            <i class="zmdi zmdi-chevron-down"></i>
-                        </span>
-                    </div>
+                    <h3>2</h3>
                     <div class="form-group">
-                        <div class="form-row form-row-1">
-                            <input type="text" name="code" class="code" id="code" placeholder="Code +" required>
+						<div class="form-row form-row-1">  
+                            <input type="text" name="nome_integrante2" id="nome_integrante2" class="input-text"
+                                placeholder="Nome completo" required>
                         </div>
-                        <div class="form-row form-row-2">
-                            <input type="text" name="phone" class="phone" id="phone" placeholder="Phone Number"
-                                required>
-                        </div>
+                        <div class="form-row form-row">  
+                            <input type="text" name="matricula_integrante2" id="matricula_integrante2" class="input-text"
+                                placeholder="Matrícula válida" pattern=".{11,}" required>
+                        </div> 
+					</div>
+                    <div class="form-row form-row-1">  
+                        <input type="text" name="email_integrante2" id="email_integrante2" class="input-text"
+                            placeholder="E-Mail válido" required>
                     </div>
-                    <div class="form-row">
-                        <input type="text" name="your_email" id="your_email" class="input-text" required
-                            pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
+                    <h3>3</h3>
+                    <div class="form-group">
+						<div class="form-row form-row-1">  
+                            <input type="text" name="nome_integrante3" id="nome_integrante3" class="input-text"
+                                placeholder="Nome completo" required>
+                        </div>
+                        <div class="form-row form-row">  
+                            <input type="text" name="matricula_integrante3" id="matricula_integrante3" class="input-text"
+                                placeholder="Matrícula válida" pattern=".{11,}" required>
+                        </div> 
+					</div>
+                    <div class="form-row form-row-1">  
+                        <input type="text" name="email_integrante3" id="email_integrante3" class="input-text"
+                            placeholder="E-Mail válido" required>
+                    </div>
+                    <h3>4</h3>
+                    <div class="form-group">
+						<div class="form-row form-row-1">  
+                            <input type="text" name="nome_integrante4" id="nome_integrante4" class="input-text"
+                                placeholder="Nome completo" required>
+                        </div>
+                        <div class="form-row form-row">  
+                            <input type="text" name="matricula_integrante4" id="matricula_integrante4" class="input-text"
+                                placeholder="Matrícula válida" pattern=".{11,}" required>
+                        </div> 
+					</div>
+                    <div class="form-row form-row-1">  
+                        <input type="text" name="email_integrante4" id="email_integrante4" class="input-text"
+                            placeholder="E-Mail válido" required>
+                    </div>
+                    <h3>5</h3>
+                    <div class="form-group">
+						<div class="form-row form-row-1">  
+                            <input type="text" name="nome_integrante5" id="nome_integrante5" class="input-text"
+                                placeholder="Nome completo" required>
+                        </div>
+                        <div class="form-row form-row">  
+                            <input type="text" name="matricula_integrante5" id="matricula_integrante5" class="input-text"
+                                placeholder="Matrícula válida" pattern=".{11,}" required>
+                        </div> 
+					</div>
+                    <div class="form-row form-row-1">  
+                        <input type="text" name="email_integrante5" id="email_integrante5" class="input-text"
+                            placeholder="E-Mail válido" required>
                     </div>
                     <div class="form-checkbox">
-                        <label class="container">
-                            <p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
-                            <input type="checkbox" name="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
+						<label class="container"><p>Eu confirmo que li o <a href="#" class="text">edital desta olímpiada</a> e aceito todos os termos.</p>
+						  	<input type="checkbox" name="checkbox">
+						  	<span class="checkmark"></span>
+						</label>
+					</div>
                     <div class="form-row-last">
-                        <input type="submit" name="register" class="register" value="Register Badge">
+                        <input type="submit" name="register" class="register" value="Inscrever equipe!">
                     </div>
                 </div>
             </form>
@@ -212,7 +233,7 @@
         </div>
     </footer>
     <div id="back-top">
-        <a title="Ir para o tipo" href="#"> <i class="fas fa-level-up-alt"></i></a>
+        <a title="Ir para o topo" href="#"> <i class="fas fa-level-up-alt"></i></a>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2010.07.06dev/modernizr.min.js" integrity="sha512-HyO6DE8TAYakYahq831kmrY5Z/6HjP5wucRRPZ9XKDZhjyw5QroAPpvLRRhTSsfFh04OuEYKdcWeqKFTJCvB7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
