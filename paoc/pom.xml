@@ -20,6 +20,7 @@
   <modules>
       
     <module>paoc.view.web</module>
-      
+    <module>paoc.negocio</module>
+    <module>paoc.database</module>
   </modules>
 </project>
