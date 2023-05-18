@@ -11,25 +11,25 @@ public class Equipe {
     private String email_responsavel;
     private String nome_capitao;
     private String email_capitao;
-    private int matricula_capitao;
+    private String matricula_capitao;
     private String nome_int1;
     private String email_int1;
-    private int matricula_int1;
+    private String matricula_int1;
     private String nome_int2;
     private String email_int2;
-    private int matricula_int2;
+    private String matricula_int2;
     private String nome_int3;
     private String email_int3;
-    private int matricula_int3;
+    private String matricula_int3;
     private String nome_int4;
     private String email_int4;
-    private int matricula_int4;
+    private String matricula_int4;
     private String nome_int5;
     private String email_int5;
-    private int matricula_int5;
+    private String matricula_int5;
     private String status;
 
-    public Equipe(String nome, String curso, String nome_responsavel, String email_responsavel, String nome_capitao, String email_capitao, int matricula_capitao, String nome_int1, String email_int1, int matricula_int1, String nome_int2, String email_int2, int matricula_int2, String nome_int3, String email_int3, int matricula_int3, String nome_int4, String email_int4, int matricula_int4, String nome_int5, String email_int5, int matricula_int5, String status) {
+    public Equipe(String nome, String curso, String nome_responsavel, String email_responsavel, String nome_capitao, String email_capitao, String matricula_capitao, String nome_int1, String email_int1, String matricula_int1, String nome_int2, String email_int2, String matricula_int2, String nome_int3, String email_int3, String matricula_int3, String nome_int4, String email_int4, String matricula_int4, String nome_int5, String email_int5, String matricula_int5, String status) {
         this.nome = nome;
         this.curso = curso;
         this.nome_responsavel = nome_responsavel;
@@ -79,7 +79,7 @@ public class Equipe {
         return email_capitao;
     }
 
-    public int getMatricula_capitao() {
+    public String getMatricula_capitao() {
         return matricula_capitao;
     }
 
@@ -91,7 +91,7 @@ public class Equipe {
         return email_int1;
     }
 
-    public int getMatricula_int1() {
+    public String getMatricula_int1() {
         return matricula_int1;
     }
 
@@ -103,7 +103,7 @@ public class Equipe {
         return email_int2;
     }
 
-    public int getMatricula_int2() {
+    public String getMatricula_int2() {
         return matricula_int2;
     }
 
@@ -115,7 +115,7 @@ public class Equipe {
         return email_int3;
     }
 
-    public int getMatricula_int3() {
+    public String getMatricula_int3() {
         return matricula_int3;
     }
 
@@ -127,7 +127,7 @@ public class Equipe {
         return email_int4;
     }
 
-    public int getMatricula_int4() {
+    public String getMatricula_int4() {
         return matricula_int4;
     }
 
@@ -139,13 +139,12 @@ public class Equipe {
         return email_int5;
     }
 
-    public int getMatricula_int5() {
+    public String getMatricula_int5() {
         return matricula_int5;
     }
 
     public String getStatus() {
         return status;
     }
-    
-    
+
 }
