@@ -143,17 +143,13 @@ public class CadastroEquipes extends HttpServlet {
                     rd.forward(request, response);
                 } else {
                     session.setAttribute("nomeEquipe", nome);
-                    ServicoEquipes.cadastrarEquipe(nome, curso, nome_responsavel, email_responsavel, nome_capitao, email_capitao, matricula_capitao, nome_int1, email_int1, matricula_int1, nome_int2, email_int2, matricula_int2, nome_int3, email_int3, matricula_int3, nome_int4, email_int4, matricula_int4, nome_int5, email_int5, matricula_int5, curso);
-                    //envia email
                     RequestDispatcher rd = request.getRequestDispatcher("/sucesso.jsp");
                     rd.forward(request, response);
+                    ServicoEquipes.cadastrarEquipe(nome, curso, nome_responsavel, email_responsavel, nome_capitao, email_capitao, matricula_capitao, nome_int1, email_int1, matricula_int1, nome_int2, email_int2, matricula_int2, nome_int3, email_int3, matricula_int3, nome_int4, email_int4, matricula_int4, nome_int5, email_int5, matricula_int5, curso);
+                    //envia email
+                    
                 }
             }
-            session.setAttribute("nomeEquipe", nome);
-            ServicoEquipes.cadastrarEquipe(nome, curso, nome_responsavel, email_responsavel, nome_capitao, email_capitao, matricula_capitao, nome_int1, email_int1, matricula_int1, nome_int2, email_int2, matricula_int2, nome_int3, email_int3, matricula_int3, nome_int4, email_int4, matricula_int4, nome_int5, email_int5, matricula_int5, curso);
-            //envia email
-            RequestDispatcher rd = request.getRequestDispatcher("/sucesso.jsp");
-            rd.forward(request, response);
         }
     }
 
