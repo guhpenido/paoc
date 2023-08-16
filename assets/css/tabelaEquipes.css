@@ -1,0 +1,31 @@
+body{
+    font-family:sans-serif;  
+  }
+  
+  
+  /**Cores**/
+  #tabelaEquipes tr:nth-child(odd){
+    background-color: #eee;
+  }
+  
+  /**Cor quando passar por cima**/
+  #tabelaEquipes tr:hover td{
+    background-color: #feffb7;
+    cursor: pointer;
+  }
+  
+  /**Cor quando selecionado**/
+  #tabelaEquipes tr.selecionado td{
+    background-color: #aff7ff;
+  }
+  
+  
+  button#visualizarDados{
+    background-color: white;
+    border: 1px solid black;
+    width:50%;
+    margin: 10px auto;
+    padding:10px 0;
+    display: block;
+    color: black;
+  }

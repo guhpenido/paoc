@@ -1,0 +1,11 @@
+.hiddenRow {
+  padding: 0 !important;
+}
+#inputSenha img {
+  height: 1.3em;
+  float: left;
+}
+
+#inputSenha img {
+  cursor: pointer;
+}
