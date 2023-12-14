@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 function sendEmailToMember($myAccountEmail, $recepient, $corpo, $assunto, $emailRemetente)
     {
-        $subject = $assunto." | Olimpíadas do Conhecimento do CEFET-MG";
+        $subject = $assunto." | Olimpiadas do Conhecimento do CEFET-MG";
         $message = $corpo;
 
         // Create a new PHPMailer instance

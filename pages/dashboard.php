@@ -60,7 +60,6 @@
         </div>
         <a href="questoes.php" class="nav_link"> <i class="fas fa-solid fa-question nav_icon"></i> <span class="nav_name">Questões</span></a>
         </div> <a href="../index.html" class="nav_link"> <i class="fas fa-solid fa-arrow-right-from-bracket nav_icon"></i> <span class="nav_name">Sair</span> </a>';
-         
             }
             ?>
         </nav>
@@ -69,7 +68,125 @@
     <!--Container Main start-->
     <div class="height-100 bg-light">
         <h4>Bem vindo a página de administradores!</h4>
-        <h5>Você está logado como: <?php echo $admin->getNome(); ?></h5>
+        <h5>Você está logado como: <?php echo $admin->getNome(); ?></h5><br>
+        <button type="button" class="btn btn-primary" id="abrirCriarSimulado">Criar olimpíada!</button>
+        <br>
+        <br>
+        <h1>Olimpíadas criadas:</h1>
+        <div class="simulados">
+            <?php
+            require_once '../services/negocioException.php';
+            require_once '../services/SimuladoDAO.php';
+            $olimpiadas = SimuladoDAO::listarSimulados();
+            foreach ($olimpiadas as $olimpiada) : ?>
+                <div class="card" onclick="abreOlimpiada(<?php echo $olimpiada->getId(); ?>)">
+                    <div class="img"><img src="https://cdn.discordapp.com/attachments/871728576972615680/1184862694478725191/favicon.png?ex=658d8460&is=657b0f60&hm=48fb0df56b917e6fb5b47e2a3f142c46c86057f26c729c4d9b558964ae165115&" alt=""></div>
+                    <div class="textBox">
+                        <div class="textContent">
+                            <p class="h1"><?php echo $olimpiada->getTitulo(); ?></p>
+                            <span class="span"><?php echo $olimpiada->getDataInicio(); ?></span>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg modalCriarSimu" id="modalQuestoes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Criação de simulado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="questaoForm" action="criaSimulado.php" method="post">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <label for="titulo_olim" class="form-label">Titulo/Nome da olimpíada:</label>
+                                <input type="text" name="titulo_olim" class="form-control" id="titulo_olim" placeholder="Titulo da olimpiada" required><br>
+                                <br><br>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <h6 id="tituloCorpo">Quantidade de questões:</h6>
+                                        <h6>Linguagem e suas Tecnologias:</h6>
+                                        <input type="number" name="numLinguagem" class="form-control" id="numLinguagem" placeholder="..." required>
+                                        <h6>Matemática e suas Tecnologias:</h6>
+                                        <input type="number" name="numMatematica" class="form-control" id="numMatematica" placeholder="..." required>
+                                        <h6>Ciências da Natureza e suas Tecnologias:</h6>
+                                        <input type="number" name="numCienNatu" class="form-control" id="numCienNatu" placeholder="..." required>
+                                        <h6>Ciências Humanas e Sociais Aplicadas:</h6>
+                                        <input type="number" name="numCienHum" class="form-control" id="numCienHum" placeholder="..." required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <h6 id="tituloCorpo">Informações:</h6>
+                                        <label for="data_inicio" class="form-label">Inicio:</label>
+                                        <input type="datetime-local" name="data_inicio" class="form-control" id="data_inicio" placeholder="" required>
+                                        <label for="data_final" class="form-label">Final:</label>
+                                        <input type="datetime-local" name="data_final" class="form-control" id="data_final" placeholder="" required>
+                                        <label for="criador_questao" class="form-label">Criador do simulado:</label>
+                                        <input type="text" name="criador_questao" class="form-control" id="criador_questao" placeholder="" value="<?php echo $admin->getNome(); ?>" readonly>
+                                        <label for="equipes" class="form-label">Equipes participantes:</label>
+                                        <input type="text" name="equipes" class="form-control" id="equipes" placeholder="" value="Todas as equipes" readonly>
+                                    </div>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary" id="btnAprovar">Criar olimpíada!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg mostraSimu" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informações</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- Seção esquerda -->
+                            <div class="col-md-6">
+                                <h4><b>Gerais:</b></h4>
+                                <h5>Titulo: <span id="simuTitulo"><b>Matkingos</b></span></h5>
+                                <h5>Inicio: <span id="simuInicio"><b>Matkingos</b></span></h5>
+                                <h5>Término: <span id="simuTermino"><b>Matkingos</b></span></h5>
+                                <h5>Criador: <span id="simuCriador"><b>Matkingos</b></span></h5>
+                            </div>
+                            <!-- Seção direita -->
+                            <div class="col-md-6">
+                                <h4><b>Número de questões:</b></h4>
+                                <h5>Linguagem e suas Tecnologias: <span id="numLt"><b>Matkingos</b></span></h5>
+                                <h5>Matemática e suas Tecnologias: <span id="numMt"><b>Matkingos</b></span></h5>
+                                <h5>Ciências da Natureza e suas Tecnologias: <span id="numCn"><b>Matkingos</b></span></h5>
+                                <h5>Ciências Humanas e Sociais Aplicadas: <span id="numCh"><b>Matkingos</b></span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnExcluir">Excluir!</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2010.07.06dev/modernizr.min.js" integrity="sha512-HyO6DE8TAYakYahq831kmrY5Z/6HjP5wucRRPZ9XKDZhjyw5QroAPpvLRRhTSsfFh04OuEYKdcWeqKFTJCvB7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

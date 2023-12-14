@@ -39,10 +39,10 @@ class EmailAprova
 
     private static function sendEmailToMember($myAccountEmail, $recepient, $nomeDest, $equipe)
     {
-        $subject = "Olimpíadas do Conhecimento | Equipe aprovada!";
+        $subject = "Olimpiadas do Conhecimento | Equipe aprovada!";
         $message = "<h1>Olá, <span>$nomeDest</span>!</h1>"
             . "<p>A equipe <strong>{$equipe->getNome()}</strong> acaba de ser aprovada!</p>"
-            . "<p>Em breve o capitão da equipe receberá informações de acesso a plataforma.</p>"
+            . "<p>Os dados de acesso a plataforma são: email do capitão e a senha é a matrícula do capitão.</p>"
             . "<h3>Informações da equipe:</h3>"
             . "<ul>"
             . "<li><strong>Nome: </strong>{$equipe->getNome()}</li>"

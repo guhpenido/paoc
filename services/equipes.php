@@ -177,4 +177,36 @@ class EquipesDAO
 
         return null;
     }
+
+    public static function logarEquipe($email, $senha) {
+        try {
+            $sql = "SELECT * FROM equipe WHERE email_capitao = ?";
+            $com = Conexao::getConnection()->prepare($sql);
+            $com->bindParam(1, $email, PDO::PARAM_STR);
+            $com->execute();
+            $row = $com->fetch(PDO::FETCH_ASSOC);
+    
+            if ($row) {
+                // Verificar a senha criptografada no banco de dados
+                if ($row["matricula_capitao"] === $senha) {
+                    if ($row["status"] === "Aprovada") {
+                    $nomeEquipe = $row["nome"];
+                    $cursoEquipe = $row["curso"];
+                    $equipe = self::procurarEquipePorNomeECurso($nomeEquipe, $cursoEquipe);
+                    return $equipe;
+                    }else{
+                        throw new persistenciaException("Equipe em análise!");
+                    }
+                } else {
+                    throw new persistenciaException("Senha incorreta!");
+                }
+            } else {
+                throw new persistenciaException("Usuário não encontrado!");
+            }
+        } catch (Exception $e) {
+            throw new persistenciaException("Erro ao realizar login: " . $e->getMessage());
+        }
+    }
+
 }
+

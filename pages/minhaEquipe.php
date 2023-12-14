@@ -15,10 +15,30 @@
     <link rel="stylesheet" href="../assets/css/slicknav.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/sobre.css">
+    <link rel="stylesheet" href="../assets/css/homePage.css">
 
 </head>
 
 <body>
+    <?php
+
+    require_once '../services/Equipe.php';
+
+    // Resgatar o objeto Admin da sessão
+    session_start();
+    $equipe = $_SESSION["equipe"] ?? null;
+
+    if ($equipe === null) {
+        echo "<script>alert('Você não está logado!')</script>";
+        header("Location: login.html"); // Redireciona para a página de login
+        exit(); // Encerra o script para garantir o redirecionamento correto
+    }
+
+    // Verificar se o objeto Admin está presente na sessão
+
+    // Exibir as informações do Admin na página
+
+    ?>
     <!-- Carregando -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -49,12 +69,9 @@
                                     <div class="main-menu d-none d-lg-block">
                                         <nav>
                                             <ul id="navigation">
-                                                <li class="active"><a href="../index.html">Início</a></li>
-                                                <li><a href="sobre.html">Sobre</a></li>
-                                                <li><a href="contato.html">Contato</a></li>
-                                                <!-- Botões -->
-                                                <li class="button-header margin-left "><a href="register.html" class="btn">Inscrever</a></li>
-                                                <li class="button-header"><a href="login.html" class="btn btn3">Entrar</a></li>
+                                                <li class="active"><a href="homePage.php">Início</a></li>
+                                                <li class="button-header"><a href="login.html" class="btn btn3">Sair</a></li>
+                                                <li class="button-header"><a href="minhaEquipe.php" class="btn btn3"><?php echo $equipe->getNome(); ?></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -73,58 +90,27 @@
     <main>
         <div class="bg-light">
             <div class="container py-5">
-              <div class="row h-100 align-items-center py-5">
-                <div class="col-lg-6">
-                  <h1 class="display-4">Sobre a Olimpíada</h1>
-                  <p class="lead text-muted mb-0">Saiba mais sobre a 1ª Olimpíada do Conhecimento do CEFET-MG através do <a href="#" class="text-muted"> 
-                    <u>edital oficial.</u></a></p>
-                  </p>
+                <div class="row h-100 align-items-center py-5">
+                    <div class="col-lg-6">
+                        <h1 class="display-4">Dados da equipe:</h1>
+                        <h3>Nome da equipe: <span><?php echo $equipe->getNome(); ?></span> </h3>
+                        <h3>Curso: <span><?php echo $equipe->getCurso(); ?></span> </h3>
+                        <h3>Nome do responsável: <span><?php echo $equipe->getNomeResponsavel(); ?></span> </h3>
+                        <h3>Nome do capitão: <span><?php echo $equipe->getNomeCapitao(); ?></span> </h3>
+                    </div>
+                    <div class="col-lg-6">
+                        <h2>Integrantes:</h2>
+                        <h3><span><?php echo $equipe->getNomeInt1(); ?></span> </h3>
+                        <h3><span><?php echo $equipe->getNomeInt2(); ?></span> </h3>
+                        <h3><span><?php echo $equipe->getNomeInt3(); ?></span> </h3>
+                        <h3><span><?php echo $equipe->getNomeInt4(); ?></span> </h3>
+                        <h3><span><?php echo $equipe->getNomeInt5(); ?></span> </h3>
+                    </div>
                 </div>
-                <div class="col-lg-6 d-none d-lg-block"><img src="https://bootstrapious.com/i/snippets/sn-about/illus.png" alt="" class="img-fluid"></div>
-              </div>
             </div>
-          </div>
-          
-          
-          
-          <div class="bg-light py-5">
-            <div class="container py-5">
-              <div class="row mb-4">
-                <div class="col-lg-5">
-                  <h2 class="display-4 font-weight-light">Colaboradores</h2>
-                  <p class="font-italic text-muted">Esses são os nomes que tornaram o projeto possível;</p>
-                </div>
-              </div>
-          
-              <div class="row text-center">
-                <!-- Team item-->
-                <div class="col-xl-3 col-sm-6 mb-5">
-                  <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-3.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-                    <h5 class="mb-0">Eriks Vargas</h5><span class="small text-uppercase text-muted">Coordenador geral</span>
-                    <ul class="social mb-0 list-inline mt-3">
-                      <li class="list-inline-item"><a href="http://buscatextual.cnpq.br/buscatextual/visualizacv.do" class="social-link"><i class="fa fa-link"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- End-->
-          
-                <!-- Team item-->
-                <div class="col-xl-3 col-sm-6 mb-5">
-                  <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-4.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-                    <h5 class="mb-0">Fernanda Aparecida</h5><span class="small text-uppercase text-muted">COORDENADORA GERAL</span>
-                    <ul class="social mb-0 list-inline mt-3">
-                        <li class="list-inline-item"><a href="http://buscatextual.cnpq.br/buscatextual/visualizacv.do;jsessionid=D3A7909DA896525560805BD81AB6C481.buscatextual_0" class="social-link"><i class="fa fa-link"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- End-->
-          
-                <!-- Team item-->
-            
-          
-              </div>
-            </div>
-          </div>
+        </div>
+
+        </div>
     </main>
     <footer>
         <div class="footer-wrappper footer-bg">

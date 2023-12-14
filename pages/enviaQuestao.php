@@ -1,6 +1,7 @@
 <?php
 require_once '../services/QuestaoDAO.php';
 require_once '../services/Questao.php';
+require_once '../services/Questao1.php';
  // Certifique-se de incluir o arquivo correto
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -8,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $area = $_POST['area_questao'];
     $nivel = $_POST['nivel_questao'];
     $tempo = $_POST['tempo_questao'];
-    $corpoQuestao = $_POST['questionText'];
+    $corpoQuestao = $_POST['enunciado_questao'];
     $alternativa1 = $_POST['alter1_questao'];
     $alternativa2 = $_POST['alter2_questao'];
     $alternativa3 = $_POST['alter3_questao'];
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }*/
 
     // Instanciar o objeto DTO
-    $questao = new Questao(
+    $questao = new Questao1(
         $area,
         $nivel,
         $tempo,

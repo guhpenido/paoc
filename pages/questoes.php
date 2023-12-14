@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/questoes.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 
 </head>
 
@@ -55,7 +56,6 @@
         </div>
         <a href="questoes.php" class="nav_link active"> <i class="fas fa-solid fa-question nav_icon"></i> <span class="nav_name">Questões</span></a>
         </div> <a href="../index.html" class="nav_link "> <i class="fas fa-solid fa-arrow-right-from-bracket nav_icon"></i> <span class="nav_name">Sair</span> </a>';
-         
             }
             ?>
         </nav>
@@ -64,38 +64,39 @@
     <div class="container mt-5">
         <button type="button" id="abreModal" class="btn btn-primary btn-lg btn-block">Adicionar questão</button>
 
-
-
         <div class="container mt-5">
-        <h2>Tabela de questões:</h2>
-        <table class="table" id="tabelaEquipes">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Número</th>
-                    <th scope="col">Área</th>
-                    <th scope="col">Nível</th>
-                    <th scope="col">Autor</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                require_once '../services/negocioException.php';
-                require_once '../services/QuestaoDAO.php';
-                $aux = 0;
-                $questoes = QuestaoDAO::listarQuestoes();
-                foreach ($questoes as $questao) :
-                    $aux = $aux + 1; ?>
+            <h2>Tabela de questões:</h2>
+            <table class="table" id="tabelaQuestoes">
+                <thead class="thead-dark">
                     <tr>
-                        <td><?php echo $aux; ?></td>
-                        <td><?php echo $questao->getArea(); ?></td>
-                        <td><?php echo $questao->getNivel(); ?></td>
-                        <td><?php echo $questao->getAutor(); ?></td>
+                        <th scope="col">ID</th>
+                        <th scope="col">Número</th>
+                        <th scope="col">Área</th>
+                        <th scope="col">Nível</th>
+                        <th scope="col">Autor</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-        <div class="modal fade bd-example-modal-lg" id="modalQuestoes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                </thead>
+                <tbody>
+                    <?php
+                    require_once '../services/negocioException.php';
+                    require_once '../services/QuestaoDAO.php';
+                    $aux = 0;
+                    $questoes = QuestaoDAO::listarQuestoes();
+                    foreach ($questoes as $questao) :
+                        $aux = $aux + 1; ?>
+                        <tr>
+                            <td><?php echo $questao->getId(); ?></td>
+                            <td><?php echo $aux; ?></td>
+                            <td><?php echo $questao->getArea(); ?></td>
+                            <td><?php echo $questao->getNivel(); ?></td>
+                            <td><?php echo $questao->getAutor(); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <button id="visualizarDados">Visualizar Dados</button>
+        </div>
+        <div class="modal fade bd-example-modal-lg modalQuest" id="modalQuestoes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -138,15 +139,16 @@
                                         </div>
                                     </div>
                                     <h6 id="tituloCorpo">Corpo da questão:</h6>
-                                    <div id="editor-container"></div>
-                                    <br><input type="hidden" id="hidden-editor" name="questionText">
-                                    
+                                    <label for="enunciado_questao" class="form-label">Coloque aqui o print da questão:</label><br>
+                                    <input type="file" placeholder="Coloque aqui o enunciado.">
+                                    <input type="text" name="enunciado_questao" class="form-control" id="enunciado_questao">
                                     <br><br>
                                     <div class="col-md-6">
                                         <h6 id="tituloCorpo">Alternativas (não numerar nem letrar):</h6>
                                         <div class="mb-3">
-                                            <label for="alter1_questao" class="form-label">Alternativa 1:</label>
+                                            <label for="alter1_questao" class="form-label">Alternativa 1:</label><br>
                                             <input type="text" name="alter1_questao" class="form-control" id="alter1_questao" placeholder="Coloque aqui uma das alternativas.">
+
                                         </div>
                                         <div class="mb-3">
                                             <label for="alter2_questao" class="form-label">Alternativa 2:</label>
@@ -161,7 +163,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="alter4_questao" class="form-label">Alternativa 4:</label>
-                                            <input type="text" name="alter4_questao"class="form-control" id="alter4_questao" placeholder="Coloque aqui uma das alternativas.">
+                                            <input type="text" name="alter4_questao" class="form-control" id="alter4_questao" placeholder="Coloque aqui uma das alternativas.">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -189,6 +191,50 @@
             </div>
         </div>
 
+        <div class="modal fade bd-example-modal-lg tabelaQues" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Informações</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <!-- Seção esquerda -->
+                                <div class="col-md-6">
+                                    <h4><b>Gerais:</b></h4>
+                                    <h5>Área de competência: <span id="areaComp"><b>Matkingos</b></span></h5>
+                                    <h5>Nível de dificuldade: <span id="nivelDif"><b>Matkingos</b></span></h5>
+                                    <h5>Tempo (s): <span id="tempoS"><b>Matkingos</b></span></h5>
+                                    <h5>Criador da questão: <span id="criadorQ"><b>Matkingos</b></span></h5>
+                                </div>
+                                <!-- Seção direita -->
+                                <div class="col-md-6">
+                                    <h4><b>Alternativas:</b></h4>
+                                    <h5>Alternativa 01: <span id="showAlt1"><b>Matkingos</b></span></h5>
+                                    <h5>Alternativa 02: <span id="showAlt2"><b>Matkingos</b></span></h5>
+                                    <h5>Alternativa 03: <span id="showAlt3"><b>Matkingos</b></span></h5>
+                                    <h5>Alternativa 04: <span id="showAlt4"><b>Matkingos</b></span></h5>
+                                    <h5><b>Alternativa correta:</b> <span id="showAltCor"><b>Matkingos</b></span></h5>
+                                </div>
+                            </div>
+                            <h4><b>Corpo da questão:</b></h4>
+                            <div class="imagemCorpoQuest">
+                                <img id="imagemCorpo" src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="btnExcluir">Excluir!</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2010.07.06dev/modernizr.min.js" integrity="sha512-HyO6DE8TAYakYahq831kmrY5Z/6HjP5wucRRPZ9XKDZhjyw5QroAPpvLRRhTSsfFh04OuEYKdcWeqKFTJCvB7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -198,6 +244,7 @@
         <script src="../assets/js/dashboard.js"></script>
         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
         <script src="../assets/js/questoes.js"></script>
+        <script src="../assets/js/tabelaQuestoes.js"></script>
 
         <?php
 

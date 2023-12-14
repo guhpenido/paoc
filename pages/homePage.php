@@ -15,10 +15,30 @@
     <link rel="stylesheet" href="../assets/css/slicknav.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/sobre.css">
+    <link rel="stylesheet" href="../assets/css/homePage.css">
 
 </head>
 
 <body>
+    <?php
+
+    require_once '../services/Equipe.php';
+
+    // Resgatar o objeto Admin da sessão
+    session_start();
+    $equipe = $_SESSION["equipe"] ?? null;
+
+    if ($equipe === null) {
+        echo "<script>alert('Você não está logado!')</script>";
+        header("Location: login.html"); // Redireciona para a página de login
+        exit(); // Encerra o script para garantir o redirecionamento correto
+    }
+
+    // Verificar se o objeto Admin está presente na sessão
+
+    // Exibir as informações do Admin na página
+
+    ?>
     <!-- Carregando -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -49,12 +69,9 @@
                                     <div class="main-menu d-none d-lg-block">
                                         <nav>
                                             <ul id="navigation">
-                                                <li class="active"><a href="../index.html">Início</a></li>
-                                                <li><a href="sobre.html">Sobre</a></li>
-                                                <li><a href="contato.html">Contato</a></li>
-                                                <!-- Botões -->
-                                                <li class="button-header margin-left "><a href="register.html" class="btn">Inscrever</a></li>
-                                                <li class="button-header"><a href="login.html" class="btn btn3">Entrar</a></li>
+                                                <li class="active"><a href="homePage.php">Início</a></li>
+                                                <li class="button-header"><a href="login.html" class="btn btn3">Sair</a></li>
+                                                <li class="button-header"><a href="minhaEquipe.php" class="btn btn3"><?php echo $equipe->getNome(); ?></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -73,58 +90,72 @@
     <main>
         <div class="bg-light">
             <div class="container py-5">
-              <div class="row h-100 align-items-center py-5">
-                <div class="col-lg-6">
-                  <h1 class="display-4">Sobre a Olimpíada</h1>
-                  <p class="lead text-muted mb-0">Saiba mais sobre a 1ª Olimpíada do Conhecimento do CEFET-MG através do <a href="#" class="text-muted"> 
-                    <u>edital oficial.</u></a></p>
-                  </p>
+                <div class="row h-100 align-items-center py-5">
+                    <div class="col-lg-6">
+                        <h1 class="display-4">Última notícia:</h1>
+                        <p class="lead text-muted mb-0">A Olimpíada está chegando!! <a href="#" class="text-muted">
+                                <u>Saiba mais.</u></a></p>
+                        </p>
+                    </div>
+
                 </div>
-                <div class="col-lg-6 d-none d-lg-block"><img src="https://bootstrapious.com/i/snippets/sn-about/illus.png" alt="" class="img-fluid"></div>
-              </div>
             </div>
-          </div>
-          
-          
-          
-          <div class="bg-light py-5">
+        </div>
+
+
+
+        <div class="bg-light py-5">
             <div class="container py-5">
-              <div class="row mb-4">
-                <div class="col-lg-5">
-                  <h2 class="display-4 font-weight-light">Colaboradores</h2>
-                  <p class="font-italic text-muted">Esses são os nomes que tornaram o projeto possível;</p>
+                <div class="row mb-4">
+                    <div class="col-lg-5">
+                        <h2 class="display-4 font-weight-light">Olimpíadas:</h2>
+                        <p class="font-italic text-muted">Essas são todas as olimpíadas para qual sua equipe está cadastrada.</p>
+                    </div>
                 </div>
-              </div>
-          
-              <div class="row text-center">
-                <!-- Team item-->
-                <div class="col-xl-3 col-sm-6 mb-5">
-                  <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-3.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-                    <h5 class="mb-0">Eriks Vargas</h5><span class="small text-uppercase text-muted">Coordenador geral</span>
-                    <ul class="social mb-0 list-inline mt-3">
-                      <li class="list-inline-item"><a href="http://buscatextual.cnpq.br/buscatextual/visualizacv.do" class="social-link"><i class="fa fa-link"></i></a></li>
-                    </ul>
-                  </div>
+
+                <div class="row text-center">
+                    <!-- Team item-->
+                    <?php
+                    require_once '../services/negocioException.php';
+                    require_once '../services/SimuladoDAO.php';
+
+                    $olimpiadas = SimuladoDAO::listarSimulados();
+                    $currentDateTime = new DateTime();
+
+                    foreach ($olimpiadas as $olimpiada) :
+                        $dataInicio = DateTime::createFromFormat('d/m/Y - H:i', $olimpiada->getDataInicio());
+                        $dataTermino = DateTime::createFromFormat('d/m/Y - H:i', $olimpiada->getDataTermino());
+
+                        // Verificar se a data de início já começou e a data de término ainda é válida
+                        if ($currentDateTime >= $dataInicio && $currentDateTime <= $dataTermino) :
+                    ?>
+                            <div class="rounded shadow-sm py-5 px-4 cardOlimps actveOlimps" >
+                                <img src="https://cdn.discordapp.com/attachments/871728576972615680/1184862694478725191/favicon.png?ex=658d8460&is=657b0f60&hm=48fb0df56b917e6fb5b47e2a3f142c46c86057f26c729c4d9b558964ae165115&" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                                <h5 class="mb-0"><?php echo $olimpiada->getTitulo(); ?></h5>
+                                <span class="small text-uppercase text-muted"><?php echo $olimpiada->getDataInicio(); ?></span>
+                                <ul class="social mb-0 list-inline mt-3">
+                                    <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-hand-pointer"></i></a></li>
+                                </ul>
+                            </div>
+                        <?php
+                        else : ?>
+                            <div class="rounded shadow-sm py-5 px-4 cardOlimps inative">
+                                <img src="https://cdn.discordapp.com/attachments/871728576972615680/1184862694478725191/favicon.png?ex=658d8460&is=657b0f60&hm=48fb0df56b917e6fb5b47e2a3f142c46c86057f26c729c4d9b558964ae165115&" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                                <h5 class="mb-0"><?php echo $olimpiada->getTitulo(); ?></h5>
+                                <span class="small text-uppercase text-muted"><?php echo $olimpiada->getDataInicio(); ?></span>
+                                <ul class="social mb-0 list-inline mt-3">
+                                    <li class="list-inline-item"><a href="#" class="social-link inativeLive"><i class="fa fa-lock"></i></a></li>
+                                </ul>
+                            </div>
+                    <?php
+                        endif;
+                    endforeach;
+                    ?>
+
                 </div>
-                <!-- End-->
-          
-                <!-- Team item-->
-                <div class="col-xl-3 col-sm-6 mb-5">
-                  <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-4.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-                    <h5 class="mb-0">Fernanda Aparecida</h5><span class="small text-uppercase text-muted">COORDENADORA GERAL</span>
-                    <ul class="social mb-0 list-inline mt-3">
-                        <li class="list-inline-item"><a href="http://buscatextual.cnpq.br/buscatextual/visualizacv.do;jsessionid=D3A7909DA896525560805BD81AB6C481.buscatextual_0" class="social-link"><i class="fa fa-link"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- End-->
-          
-                <!-- Team item-->
-            
-          
-              </div>
             </div>
-          </div>
+        </div>
+        </div>
     </main>
     <footer>
         <div class="footer-wrappper footer-bg">

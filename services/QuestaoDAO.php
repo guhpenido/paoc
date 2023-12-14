@@ -1,12 +1,13 @@
 <?php
 require_once 'Questao.php';
+require_once 'Questao1.php';
 require_once 'Conexao.php';
 require_once 'negocioException.php';
 require_once 'persistenciaException.php';
 
 class QuestaoDAO {
 
-    public static function inserirQuestao(Questao $questao) {
+    public static function inserirQuestao(Questao1 $questao) {
         try {
             $sql = "INSERT INTO questoes (area, nivel, tempo, corpo_questao, alternativa1, alternativa2, alternativa3, alternativa4, alternativa_correta, autor) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -39,6 +40,7 @@ class QuestaoDAO {
 
         while ($row = $com->fetch(PDO::FETCH_ASSOC)) {
             $questao = new Questao(
+                $row['id'],
                 $row['area'],
                 $row['nivel'],
                 $row['tempo'],
@@ -58,6 +60,19 @@ class QuestaoDAO {
         }
 
         return null;
+    }
+
+    public static function excluirQuestaoPorId($id) {
+        try {
+            $sql = "DELETE FROM questoes WHERE id = ?";
+            $connection = Conexao::getConnection();
+            $stmt = $connection->prepare($sql);
+            $stmt->bindValue(1, $id, PDO::PARAM_INT);
+            
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            throw new persistenciaException("Erro ao excluir questão: " . $e->getMessage());
+        }
     }
 
 }

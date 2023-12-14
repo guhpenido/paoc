@@ -1,6 +1,5 @@
 <?php
-class Questao {
-    public $id;
+class Questao1 {
     public $area;
     public $nivel;
     public $tempo;
@@ -12,8 +11,7 @@ class Questao {
     public $alternativa_correta;
     public $autor;
 
-    public function __construct($id, $area, $nivel, $tempo, $corpo_questao, $alternativa1, $alternativa2, $alternativa3, $alternativa4, $alternativa_correta, $autor) {
-        $this->id = $id;
+    public function __construct($area, $nivel, $tempo, $corpo_questao, $alternativa1, $alternativa2, $alternativa3, $alternativa4, $alternativa_correta, $autor) {
         $this->area = $area;
         $this->nivel = $nivel;
         $this->tempo = $tempo;
@@ -26,9 +24,6 @@ class Questao {
         $this->autor = $autor;
     }
 
-    public function getId() {
-        return $this->id;
-    }
     public function getArea() {
         return $this->area;
     }

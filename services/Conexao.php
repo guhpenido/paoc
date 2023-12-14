@@ -1,9 +1,9 @@
 <?php
 
 class Conexao {
-    private static $URL_MYSQL = "mysql:host=paoc.cjpzfmkc7gea.us-east-1.rds.amazonaws.com;dbname=paoc";
-    private static $USER = "admin";
-    private static $PASS = "LRnl51K5Df8jeGxccnEhezJMtROQSLRcaAqX";
+    private static $URL_MYSQL = "mysql:host=localhost;dbname=paoc"; // Alterado para apontar para o MySQL local
+    private static $USER = "root"; // Substitua com o nome de usuário do seu banco de dados
+    private static $PASS = ""; // Substitua com a senha do seu banco de dados
     private static $DRIVER_OPTIONS = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
     public static function getConnection() {

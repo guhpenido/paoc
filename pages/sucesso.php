@@ -78,7 +78,7 @@
                             <div class="col-xl-12 ">
                                 <div class="footer-copy-right text-center">
                                     <p>
-                                        Olímpiadas do Conhecimento | CEFET-MG
+                                    Olimpíadas do Conhecimento | CEFET-MG
                                     </p>
                                 </div>
                             </div>

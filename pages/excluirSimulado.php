@@ -1,20 +1,18 @@
 <?php
-require_once '../services/Equipe.php';
+require_once '../services/Simulado.php';
+require_once '../services/Simulado1.php';
 require_once '../services/negocioException.php';
-require_once '../services/equipes.php';
-require_once './emailAprova.php';
+require_once '../services/SimuladoDAO.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['nomeEquipe']) && isset($_GET['cursoEquipe'])) {
-    $nomeEquipe = $_GET['nomeEquipe'];
-    $cursoEquipe = $_GET['cursoEquipe'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['idSimulado'])) {
+   $idSimulado = $_GET['idSimulado'];
 
     // Chamar a função de aprovarEquipe da classe EquipesDAO passando o nome e curso da equipe
-    $aprovacao = EquipesDAO::aprovarEquipe($nomeEquipe, $cursoEquipe);
+    $exclusao = SimuladoDAO::excluirSimuladoPorId($idSimulado);
 
-    if ($aprovacao) {
+    if ($exclusao) {
         // A equipe foi aprovada com sucesso
         echo json_encode(array('success' => true));
-        EmailAprova::emailAprova($nomeEquipe, $cursoEquipe);
         
         // Aqui você pode adicionar qualquer tratamento adicional ou resposta que desejar enviar ao cliente
     } else {
